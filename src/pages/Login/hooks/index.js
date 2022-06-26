@@ -1,12 +1,25 @@
 import axios from "axios";
 import { useMutation } from "react-query";
+import { DeviceUUID } from 'device-uuid';
 
 export const useLogin = () => {
   const loginMutation = useMutation(async (loginData) => {
+    loginData = {...loginData, 'device_id': (new DeviceUUID()).get()};
+    console.log(loginData);
+    
+    let url;
+    if (loginData.username.includes('student')) {
+      url = "https://api.maoleng.dev/api/std/login";
+    }
+    else {
+      url = "https://api.maoleng.dev/api/mng/login";
+    }
+    
     const { data } = await axios.post(
-      "http://localhost:4000/auth/login",
+      url,
       loginData
     );
+    console.log(data);
 
     return data;
   });
