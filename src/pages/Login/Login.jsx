@@ -30,7 +30,7 @@ const Login = () => {
           </span>
           <Input
             type="email"
-            name="email"
+            name="username"
             label="Email address"
             registerOptions={{
               required: { value: true, message: "Please enter email adress" },
