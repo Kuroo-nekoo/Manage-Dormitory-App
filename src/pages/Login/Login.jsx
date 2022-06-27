@@ -1,21 +1,31 @@
 import * as React from "react";
+
 import { useForm, FormProvider } from "react-hook-form";
+import { useNavigate, Link } from "react-router-dom";
+
 import Button from "../../components/Button";
 import Form from "../../components/Form";
 import Input from "../../components/Input";
 import { useLogin } from "./hooks";
 import { BiEnvelope, BiLockAlt } from "react-icons/bi";
-import { Link } from "react-router-dom";
 
 const Login = () => {
+  let navigate = useNavigate();
   const methods = useForm({
     defaultValues: { email: "", password: "" },
   });
   const loginMutation = useLogin();
-  console.log("test");
 
-  const onLoginFormSubmit = methods.handleSubmit((data) => {
-    loginMutation.mutate(data);
+  const onLoginFormSubmit = methods.handleSubmit((loginData) => {
+    loginMutation.mutate(loginData, {
+      onSuccess(data) {
+        console.log(data);
+        if (data.status === true) {
+          localStorage.setItem("token", data.token);
+          navigate("/", { replace: true });
+        }
+      },
+    });
   });
 
   return (

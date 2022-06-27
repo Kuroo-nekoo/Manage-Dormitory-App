@@ -1,7 +1,8 @@
 import * as React from "react";
+import * as jose from "jose";
 
 const Home = () => {
-  return (<h1>Home</h1>);
+  const token = localStorage.getItem("token");
 };
 
 export default Home;
