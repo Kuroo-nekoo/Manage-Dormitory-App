@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 import { DeviceUUID } from "device-uuid";
-import { computeHeadingLevel } from "@testing-library/react";
 
 export const useLogin = () => {
   const loginMutation = useMutation(async (loginData) => {

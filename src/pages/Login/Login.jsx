@@ -53,10 +53,10 @@ const Login = () => {
             label="Password"
             registerOptions={{
               required: { value: true, message: "Please enter password" },
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
-              },
+              // minLength: {
+              //   // value: 6,
+              //   message: "Password must be at least 6 characters",
+              // },
             }}
             Icon={BiLockAlt}
           />
