@@ -25,7 +25,6 @@ const Navbar = () => {
         <div className="py-2 px-3">Account</div>
         <div className="space-x-4 hidden group-hover:block absolute rounded border-solid border-black border z-10 bg-white">
           <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
         </div>
       </div>
     </div>
