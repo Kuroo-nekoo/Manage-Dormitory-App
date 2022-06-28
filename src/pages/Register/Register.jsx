@@ -30,15 +30,14 @@ const Register = () => {
   if ( Object.keys(info).length ) {
     const registerRoom = (id) => {
       axios.post(
-        'https://api.maoleng.dev/api/std/contract/register/',
+        'https://api.maoleng.dev/api/std/contract/register',
         {
           "season_time": info.season_time,
           "room_type": id
         },
         {
           headers: {
-            Authorization: 'Bearer ' + window.localStorage.getItem('token'),
-            'Content-Type': 'application/json'
+            Authorization: 'Bearer ' + window.localStorage.getItem('token')
           }
         }
       )

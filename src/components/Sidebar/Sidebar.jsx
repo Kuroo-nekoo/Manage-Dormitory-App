@@ -8,6 +8,10 @@ const Sidebar = () => {
         link="/user/room-registation"
         title="room-registation"
       ></SidebarItem>
+      <SidebarItem
+        link="/user/room-registered"
+        title="room-registered"
+      ></SidebarItem>
     </div>
   );
 };
