@@ -1,10 +1,10 @@
 import * as React from "react";
-import SidebarList from "../../components/SidebarList";
+import Sidebar from "../../components/Sidebar";
 
 const UserControlPanel = () => {
   return (
     <div>
-      <SidebarList></SidebarList>
+      <Sidebar></Sidebar>
     </div>
   );
 };
