@@ -7,7 +7,10 @@ const Navbar = () => {
   const [navPosition, setNavPosition] = React.useState("");
   const [dropdownShow, setDropdownShow] = React.useState(false);
   const token = localStorage.getItem("token");
-  const userData = jwt_decode(token);
+  let userData;
+  if (token.length > 0) {
+    userData = jwt_decode(token);
+  }
 
   let prevScrollpos = window.pageYOffset;
   window.onscroll = function () {
