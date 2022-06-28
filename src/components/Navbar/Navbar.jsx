@@ -8,7 +8,7 @@ const Navbar = () => {
   const [dropdownShow, setDropdownShow] = React.useState(false);
   const token = localStorage.getItem("token");
   let userData;
-  if (token.length > 0) {
+  if (token && token.length > 0) {
     userData = jwt_decode(token);
   }
 
