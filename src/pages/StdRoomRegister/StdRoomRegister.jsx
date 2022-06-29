@@ -1,15 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 
-import { useForm, FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-
-import Form from "../../components/Form";
-import Button from "../../components/Button";
-
-
-
-const Register = () => {
+const StdRoomRegister = () => {
   const [info, setInfo] = React.useState({});
 
   React.useEffect(() => {
@@ -61,4 +53,4 @@ const Register = () => {
   }
 };
 
-export default Register;
+export default StdRoomRegister;

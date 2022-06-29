@@ -5,8 +5,8 @@ const Sidebar = () => {
   return (
     <div>
       <SidebarItem
-        link="/user/room-registation"
-        title="room-registation"
+        link="/user/room-register"
+        title="room-register"
       ></SidebarItem>
       <SidebarItem
         link="/user/room-registered"
