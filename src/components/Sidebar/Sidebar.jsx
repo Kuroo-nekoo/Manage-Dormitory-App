@@ -7,8 +7,8 @@ const Sidebar = () => {
     <div>
       <SidebarItemGroup title="hợp đồng">
         <SidebarItem
-          link="/user/room-registation"
-          title="room-registation"
+          link="/user/room-register"
+          title="room-register"
         ></SidebarItem>
       </SidebarItemGroup>
     </div>

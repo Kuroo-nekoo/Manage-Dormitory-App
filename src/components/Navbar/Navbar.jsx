@@ -34,20 +34,18 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </div>
       {userData ? (
-        <div className="py-2 px-3">
+        <button
+          className="py-2 px-3 group relative"
+          onClick={() => setDropdownShow(!dropdownShow)}
+        >
           {userData.name}
-          <button className="group relative inline">
-            <MdArrowDropDown
-              className="inline"
-              onClick={() => setDropdownShow(!dropdownShow)}
-            ></MdArrowDropDown>
-            <div className={`${dropdownShow ? "show" : "hidden"}`}>
-              <Link to="/user/control-panel" className="absolute right-0">
-                Control Panel
-              </Link>
-            </div>
-          </button>
-        </div>
+          <MdArrowDropDown className="inline"></MdArrowDropDown>
+          <div className={`${dropdownShow ? "show" : "hidden"}`}>
+            <Link to="/user/control-panel" className="absolute right-0">
+              Control Panel
+            </Link>
+          </div>
+        </button>
       ) : (
         <div className="group relative h-full">
           <div className="py-2 px-3">Account</div>
