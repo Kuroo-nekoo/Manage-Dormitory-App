@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 
-const Test = () => {
+const StdRoomRegistered = () => {
   const onSubmitMistake = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -34,4 +34,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default StdRoomRegistered;

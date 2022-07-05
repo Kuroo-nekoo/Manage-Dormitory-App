@@ -9,6 +9,7 @@ import StdRoomRegistered from "./pages/StdRoomRegistered";
 import UserControlPanel from "./pages/UserControlPanel";
 import MngRoomRegisters from "./pages/MngRoomRegisters";
 import MngRoomRegistersDone from "./pages/MngRoomRegistersDone";
+import MngMistakeCreate from "./pages/MngMistakeCreate";
 import Test from "./pages/Test";
 
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/user/room-registered" element={<StdRoomRegistered></StdRoomRegistered>}></Route>
         <Route path="/mng/room-registers" element={<MngRoomRegisters></MngRoomRegisters>}></Route>
         <Route path="/mng/room-registers-done" element={<MngRoomRegistersDone></MngRoomRegistersDone>}></Route>
+        <Route path="/mng/mistake-create" element={<MngMistakeCreate></MngMistakeCreate>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
       </Routes>
     </div>
