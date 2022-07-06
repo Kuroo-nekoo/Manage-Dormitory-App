@@ -14,7 +14,6 @@ const MngRoomRegisters = () => {
       }
     )
       .then((data) => {
-        console.log(data.data.data);
         setRooms(data.data.data);
       });
   }, []);
