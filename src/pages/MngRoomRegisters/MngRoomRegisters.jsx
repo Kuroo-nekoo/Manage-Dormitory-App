@@ -10,6 +10,15 @@ const MngRoomRegisters = () => {
   const confirm = useConfirm();
   const manageGetRegisters = useManageGetRegisters();
 
+  const confirmSubmit = (id) => {
+    confirm.mutate({ id }, {
+      onSuccess(data) {
+        console.log(data);
+        setLoaded(true);
+      }
+    })
+  }
+
   React.useEffect(() => {
     manageGetRegisters.mutate({}, {
       onSuccess(data) {
@@ -19,15 +28,6 @@ const MngRoomRegisters = () => {
       }
     });
   }, []);
-
-  const confirmSubmit = (id) => {
-    confirm.mutate({ id }, {
-      onSuccess(data) {
-        console.log(data);
-        setLoaded(true);
-      }
-    })
-  }
 
   return loaded ? (
     <div className="w-full flex justify-center items-center">

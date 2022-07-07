@@ -27,11 +27,28 @@ const Navbar = () => {
     <div
       className={
         navPosition +
-        "border duration-300 ease-in-out transition-all border-solid border-gray-600 flex justify-around sticky w-full items-center"
+        " z-50 bg-white bg-opacity-50 duration-300 ease-in-out transition-all border-solid border-gray-600 flex justify-around sticky w-full items-center"
       }
     >
-      <div className="py-2 px-3 inline-block">
-        <Link to="/">Home</Link>
+      <div className="flex py-2 px-3 inline-block">
+        <div className="px-2">
+          <Link to="/">Giới thiệu</Link>
+        </div>
+        <div className="px-2">
+          <Link to="/">Thông báo</Link>
+        </div>
+        <div className="px-2">
+          <Link to="/">Tin tức</Link>
+        </div>
+        <div className="px-2">
+          <Link to="/">Hoạt động</Link>
+        </div>
+        <div className="px-2">
+          <Link to="/">Hướng dẫn</Link>
+        </div>
+        <div className="px-2">
+          <Link to="/">Nội quy</Link>
+        </div>
       </div>
       {userData ? (
         <button
