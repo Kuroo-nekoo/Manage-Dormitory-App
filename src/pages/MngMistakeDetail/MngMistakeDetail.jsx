@@ -1,33 +1,28 @@
 import * as React from "react";
-import axios from "axios";
+import { useParams } from 'react-router-dom';
+
+import { useManageGetMistakeDetail } from './hooks';
 
 const MngMistakeDetail = () => {
-  const [mistake, setMistake] = React.useState(null);
+  const [loaded, setLoaded] = React.useState(false);
+  const { id } = useParams();
+
+  const manageGetMistakeDetail = useManageGetMistakeDetail();
 
   React.useEffect(() => {
-    axios.get(
-      'https://api.maoleng.dev/api/mng/mistake/2239', 
-      {
-        headers: {
-          'Authorization': 'Bearer ' + window.localStorage.getItem('token')
-        }
+    manageGetMistakeDetail.mutate({id}, {
+      onSuccess(data) {
+        console.log(data);
+        setLoaded(true);
       }
-    )
-      .then((data) => {
-        setMistake(data.data.data);
-      });
+    });
   }, []);
 
-  console.log(mistake);
-
-  if ( mistake != null ) {
-    return (
-      <div>mistakes</div>
-    )
-  }
-  else {
-    return <h1>Loading..</h1>
-  }
+  return loaded ? (
+    <div>mistakes</div>
+  ) : (
+    <h1>Loading..</h1>
+  );
 };
 
 export default MngMistakeDetail;

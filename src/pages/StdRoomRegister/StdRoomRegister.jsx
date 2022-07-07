@@ -1,56 +1,53 @@
 import * as React from "react";
-import axios from "axios";
+
+import { useStudentGetRooms, useStudentRegister } from './hooks';
+
+let info = {};
 
 const StdRoomRegister = () => {
-  const [info, setInfo] = React.useState({});
+  const [loaded, setLoaded] = React.useState(false);
 
-  React.useEffect(() => {
-    axios.get(
-      'https://api.maoleng.dev/api/std/contract/form', {
-      headers: {
-        Authorization: 'Bearer ' + window.localStorage.getItem('token')
-      }
-    })
-      .then((data) => {
-        setInfo({
-          season_time: data.data.register_time,
-          rooms: data.data.room_types.map(room => {return {value: room.id, content: room.description}})
-        });
-      });
-  }, []);
+  const studentGetRooms = useStudentGetRooms();
+  const studentRegister = useStudentRegister();
 
-  if ( Object.keys(info).length ) {
-    const registerRoom = (id) => {
-      axios.post(
-        'https://api.maoleng.dev/api/std/contract/register',
-        {
-          "season_time": info.season_time,
-          "room_type": id
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + window.localStorage.getItem('token')
-          }
-        }
-      )
-        .then((data) => {
-          console.log(data);
-        });
+  const registerSubmit = (max) => {
+    const input = {
+      "season_time": info.season_time,
+      "room_type": max
     }
 
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        {info.rooms.map((room, index) => {
-          return (
-            <div className="w-full" onClick={() => registerRoom(room.value)} key={index}>{room.content}</div>
-          );
-        })}
-      </div>
-    )
+    studentRegister.mutate(input, {
+      onSuccess(data) {
+        console.log(data);
+        setLoaded(true);
+      }
+    })
   }
-  else {
-    return <h1>Loading..</h1>
-  }
+
+  React.useEffect(() => {
+    studentGetRooms.mutate({}, {
+      onSuccess(data) {
+        console.log(data);
+        info = {
+          season_time: data.register_time,
+          rooms: data.room_types.map(room => {return {value: room.max, content: room.description}})
+        };
+        setLoaded(true);
+      }
+    });
+  }, []);
+
+  return loaded ? (
+    <div className="w-full h-screen flex justify-center items-center">  
+      {info.rooms.map((room, index) => {
+        return (
+          <div className="w-full" onClick={() => registerSubmit(room.value)} key={index}>{room.content}</div>
+        );
+      })}
+    </div>
+  ) : (
+    <h1>Loading..</h1>
+  );
 };
 
 export default StdRoomRegister;

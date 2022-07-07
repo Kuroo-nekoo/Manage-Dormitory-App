@@ -1,33 +1,26 @@
 import * as React from "react";
-import axios from "axios";
+
+import { useManageGetMistakeToday } from './hooks';
 
 const MngMistakesToday = () => {
-  const [mistakes, setMistakes] = React.useState([]);
+  const [loaded, setLoaded] = React.useState(false);
+
+  const manageGetMistakeToday = useManageGetMistakeToday();
 
   React.useEffect(() => {
-    axios.get(
-      'https://api.maoleng.dev/api/mng/mistake?time=today', 
-      {
-        headers: {
-          'Authorization': 'Bearer ' + window.localStorage.getItem('token')
-        }
+    manageGetMistakeToday.mutate({}, {
+      onSuccess(data) {
+        console.log(data);
+        setLoaded(true);
       }
-    )
-      .then((data) => {
-        setMistakes(data.data.data);
-      });
+    });
   }, []);
 
-  console.log(mistakes);
-
-  if ( Object.keys(mistakes).length ) {
-    return (
-      <div>mistakes</div>
-    )
-  }
-  else {
-    return <h1>Loading..</h1>
-  }
+  return loaded ? (
+    <div>mistakes</div>
+  ) : (
+    <h1>Loading..</h1>
+  );
 };
 
 export default MngMistakesToday;

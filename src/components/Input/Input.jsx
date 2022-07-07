@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useFormContext, useFormState } from "react-hook-form";
 
-const Input = ({ type, name, label, registerOptions, Icon }) => {
+const Input = ({ type, name, label, multiple, registerOptions, Icon }) => {
   const { register } = useFormContext();
   const { errors } = useFormState();
 
@@ -14,11 +14,17 @@ const Input = ({ type, name, label, registerOptions, Icon }) => {
             <Icon></Icon>
           </span>
         )}
-        <input
+        {(multiple) ? <input
+          className="w-full border-slate-600 focus:outline-none"
+          type={type}
+          multiple
+          {...register(name, registerOptions)}
+        ></input> : <input
           className="w-full border-slate-600 focus:outline-none"
           type={type}
           {...register(name, registerOptions)}
-        ></input>
+        ></input>}
+        
       </div>
       {errors[name] && (
         <span className="text-red-500 h-4 text-sm">{errors[name].message}</span>

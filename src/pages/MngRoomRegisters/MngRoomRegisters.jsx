@@ -1,42 +1,36 @@
 import * as React from "react";
-import axios from "axios";
+
+import { useConfirm, useManageGetRegisters } from './hooks';
+
+let rooms = [];
 
 const MngRoomRegisters = () => {
-  const [rooms, setRooms] = React.useState([]);
+  const [loaded, setLoaded] = React.useState(false);
+
+  const confirm = useConfirm();
+  const manageGetRegisters = useManageGetRegisters();
 
   React.useEffect(() => {
-    axios.get(
-      'https://api.maoleng.dev/api/mng/contract/forms', 
-      {
-        headers: {
-          Authorization: 'Bearer ' + window.localStorage.getItem('token')
-        }
+    manageGetRegisters.mutate({}, {
+      onSuccess(data) {
+        console.log(data);
+        rooms = data.data;
+        setLoaded(true);
       }
-    )
-      .then((data) => {
-        setRooms(data.data.data);
-      });
+    });
   }, []);
 
-  if ( Object.keys(rooms).length ) {
-    const duyet = (id) => {
-      axios.post(
-        `https://api.maoleng.dev/api/mng/contract/form_confirm/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: 'Bearer ' + window.localStorage.getItem('token'),
-            'Content-Type': 'application/json'
-          }
-        }
-      )
-        .then((data) => {
-          console.log(data);
-        });
-    }
+  const confirmSubmit = (id) => {
+    confirm.mutate({ id }, {
+      onSuccess(data) {
+        console.log(data);
+        setLoaded(true);
+      }
+    })
+  }
 
-    return (
-      <div className="w-full flex justify-center items-center">
+  return loaded ? (
+    <div className="w-full flex justify-center items-center">
         <table className="border">
           <thead>
             <tr>
@@ -64,7 +58,7 @@ const MngRoomRegisters = () => {
                     <button className="border bg-black text-white">Xem</button>
                   </td>
                   <td className="border">
-                    <button onClick={() => duyet(room.contract_id)} className="border bg-black text-white">Duyệt</button>
+                    <button onClick={() => confirmSubmit(room.contract_id)} className="border bg-black text-white">Duyệt</button>
                   </td>
                 </tr>
               );
@@ -72,11 +66,9 @@ const MngRoomRegisters = () => {
           </tbody>
         </table>
       </div>
-    )
-  }
-  else {
-    return <h1>Loading..</h1>
-  }
+  ) : (
+    <h1>Loading..</h1>
+  );
 };
 
 export default MngRoomRegisters;

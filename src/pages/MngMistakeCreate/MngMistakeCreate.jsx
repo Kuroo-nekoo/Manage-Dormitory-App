@@ -1,36 +1,61 @@
 import * as React from "react";
-import axios from "axios";
+import { useForm, FormProvider } from "react-hook-form";
+
+import Button from "../../components/Button";
+import Form from "../../components/Form";
+import Input from "../../components/Input";
+
+import { useMistakeCreate } from "./hooks";
 
 const StdRoomRegistered = () => {
-  const onSubmitMistake = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    formData.append('is_fix_mistake', 'false');
+  const mistakeCreate = useMistakeCreate();
 
-    console.log(formData);
+  const mistakeForm = useForm({
+    'defaultValues': { 
+      'student_card_id': "", 
+      'content': "" , 
+      'images[]': []
+    },
+  });
 
-    axios.post(
-      'https://api.maoleng.dev/api/mng/mistake',
-      formData,
-      {
-        headers: {
-          'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-      .then((data) => {
+  const mistakeSubmit = mistakeForm.handleSubmit((e, input) => {
+    console.log(new FormData(mistakeForm.getValues()));
+
+    mistakeCreate.mutate(new FormData(mistakeForm.getValues()), {
+      onSuccess(data) {
         console.log(data);
-      });
-  };
+      },
+    });
+  });
 
   return (
-    <form onSubmit={onSubmitMistake} encytpe="ENCTYPE_HERE">
-      <input type="text" name="student_card_id" />
-      <input type="text" name="content" />
-      <input type="file" name="images[]" multiple />
-      <button type="submit">Submit</button>
-    </form>
+    <FormProvider {...mistakeForm}>
+      <Form onSubmit={mistakeSubmit} enctype="multipart/form-data" title="Create mistake">
+        <Input 
+          type="text"  
+          name="student_card_id"
+          label="Student Card ID"
+          registerOptions={{
+            required: { value: true, message: "Please enter email Student Card ID" },
+          }} />
+        <Input 
+          type="text"  
+          name="content"
+          label="Content"
+          registerOptions={{
+            required: { value: true, message: "Please enter Content" },
+          }} />
+          <Input 
+            type="file"  
+            name="images[]"
+            label="Image"
+            multiple="true"
+            registerOptions={{
+              required: { value: true, message: "Please enter Image" },
+            }} />
+        <Button type="submit">Create</Button>
+      </Form>
+    </FormProvider>
   );
 };
 
