@@ -10,6 +10,7 @@ import UserControlPanel from "./pages/UserControlPanel";
 import MngRoomRegisters from "./pages/MngRoomRegisters";
 import MngRoomRegistersDone from "./pages/MngRoomRegistersDone";
 import MngMistakeCreate from "./pages/MngMistakeCreate";
+import MngMistakes from "./pages/MngMistakes";
 import MngMistakesToday from "./pages/MngMistakesToday";
 import Test from "./pages/Test";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/mng/room-registers" element={<MngRoomRegisters></MngRoomRegisters>}></Route>
         <Route path="/mng/room-registers-done" element={<MngRoomRegistersDone></MngRoomRegistersDone>}></Route>
         <Route path="/mng/mistake-create" element={<MngMistakeCreate></MngMistakeCreate>}></Route>
+        <Route path="/mng/mistakes" element={<MngMistakes></MngMistakes>}></Route>
         <Route path="/mng/mistakes-today" element={<MngMistakesToday></MngMistakesToday>}></Route>
         <Route path="/test" element={<Test></Test>}></Route>
       </Routes>
